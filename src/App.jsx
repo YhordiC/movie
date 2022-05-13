@@ -10,9 +10,12 @@ export function App() {
     <Router>
 
       <header>
-        <Link to="/">
-          <h1 className={style.titulo}>Movies</h1>
+       <div className={style.containerLink}>
+       <Link to="/">
+          <h1 className={style.titulo}>🍿🍿<h2>Movies</h2>🍿🍿</h1>
         </Link>
+         </div> 
+        
       </header>
       <main>
         <Switch>
