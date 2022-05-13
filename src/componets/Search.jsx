@@ -1,23 +1,19 @@
 import styles from "./search.module.css"
 import { FaSearch } from "react-icons/fa"
 
-import { useQuery } from "../hooks/useQuery";
-import { useHistory } from "react-router";
+
+import { useSearchParams } from "react-router-dom";
 
 
 export function Search() {
-    const query = useQuery();
+    const [query, setQuery] = useSearchParams();
     const search = query.get("search");
-
-
-    const history = useHistory();
-
 
 
     const handleSubmit = (e) => {
         e.preventgitDefault();
-
     };
+    
     return (
         <form className={styles.SearchContainer} onSubmit={handleSubmit}>
             <div className={styles.Searchbox}>
@@ -30,8 +26,8 @@ export function Search() {
                     aria-label="Search movies"
                     onChange={(e) => {
                         const value = e.target.value;
-
-                        history.push("/?search=" + value);
+                        setQuery({ search: value });
+                        // navigate("/?search=" + value);
                     }} />
                 <button className={styles.SearchButton} type="submit">
                     <FaSearch size={20} />

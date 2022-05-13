@@ -2,7 +2,7 @@
 import style from "./App.module.css"
 import React from "react";
 import { MovieDetails } from "./pages/movieDetails";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { LandigPage } from "./pages/LandigPage";
 
 export function App() {
@@ -10,19 +10,21 @@ export function App() {
     <Router>
 
       <header>
-       <div className={style.containerLink}>
-       <Link to="/">
-          <h1 className={style.titulo}>🍿🍿<h2>Movies</h2>🍿🍿</h1>
-        </Link>
-         </div> 
-        
+        <div className={style.containerLink}>
+          <Link to="/">
+            <h1 className={style.titulo}>🍿🍿<h2>Movies</h2>🍿🍿</h1>
+          </Link>
+        </div>
+
       </header>
       <main>
-        <Switch>
-          <Route path={"/movies/:movieId"}> <MovieDetails /> </Route>
-          <Route path="/"> <LandigPage /> </Route>
+        <Routes>
+          <Route path="/movies/:movieId" element={<MovieDetails />} />
+          <Route path="/" element={<LandigPage />} />
+          <Route path="*" element={<div>404</div>} />
 
-        </Switch>
+
+        </Routes>
       </main>
 
     </Router>
