@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Spinner } from "../componets/Spinner";
+import { getMoviePoster } from "../utils/getMoviePoster";
 import { get } from "../utils/httpCLient";
 
 import style from "./MovieDetals.module.css"
@@ -28,7 +29,7 @@ export function MovieDetails(){
       }
       
 
-    const imagURL="https://image.tmdb.org/t/p/w500" + movie.poster_path;
+    const imagURL=getMoviePoster(movie.poster_path,500) ;
     return(
         <div className={style.detailsContainer}>
             
