@@ -2,47 +2,47 @@ import { useEffect, useState } from "react";
 
 import { get } from "../utils/httpCLient";
 
-import {MovieCard} from "./movieCard"
+import { MovieCard } from "./movieCard"
 import { Spinner } from "./Spinner";
-import  style from "./moviesGrid.module.css"
+import style from "./moviesGrid.module.css"
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Empty } from "./Empty";
 
-export function MoviesGRid({search} ){
+export function MoviesGRid({ search }) {
   const [movies, setMovies] = useState([]);
-  const[isLoading,setIsLoading]= useState(true);
-  const [page,setPage] = useState(1);
-  const [hasMore,setHasMore]= useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   console.log(search);
 
   useEffect(() => {
     setIsLoading(true);
-    const searchURL= search 
-    ? "/search/movie?query=" + search +"&page=" + page
-    : "/discover/movie?page=" + page;
+    const searchURL = search
+      ? "/search/movie?query=" + search + "&page=" + page
+      : "/discover/movie?page=" + page;
     get(searchURL).then((data) => {
-      setMovies((prevMovies)=> prevMovies.concat(data.results));
+      setMovies((prevMovies) => prevMovies.concat(data.results));
       setHasMore(data.page < data.total_pages);
       setIsLoading(false);
     });
-  }, [search,page]);
+  }, [search, page]);
 
-     if(!isLoading && movies.length===0) return <Empty/>
+  if (!isLoading && movies.length === 0) return <Empty />
 
-    return(
-      <InfiniteScroll 
-      dataLength={movies.length} 
+  return (
+    <InfiniteScroll
+      dataLength={movies.length}
       hasMore={hasMore}
-       next={()=>  setPage((prevPage)=> prevPage + 1)  }
-       loader={ <Spinner/>}>
-         <ul className={style.moviesGrid}>
-          { /**REcoro todo mi objeto movies.json con map  */
+      next={() => setPage((prevPage) => prevPage + 1)}
+      loader={<Spinner />}>
+      <ul className={style.moviesGrid}>
+        { /**REcoro todo mi objeto movies.json con map  */
           movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie}/>
-          )) }          
-        </ul>
-      </InfiniteScroll>
-       
-    )
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+      </ul>
+    </InfiniteScroll>
+
+  )
 }
