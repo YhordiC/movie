@@ -1,6 +1,6 @@
 import styles from "./search.module.css"
 import {FaSearch} from "react-icons/fa"
-import {useState ,useEffect} from "react"
+
 import { useQuery } from "../hooks/useQuery";
 import { useHistory } from "react-router";
 
@@ -24,8 +24,13 @@ export function Search() {
                 <input className={styles.SearchInput} 
                 type="text" 
                 value={search} 
+                placeholder="Title"
+
+                autoFocus={true}
+                aria-label="Search movies"
                 onChange={(e)=> 
                     {  const value= e.target.value;
+                       
                       history.push("/?search=" + value);
                     }}/>
                 <button className={styles.SearchButton} type="submit">
