@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { get } from "../utils/httpCLient";
-import { useQuery } from "../hooks/useQuery";
+
 import {MovieCard} from "./movieCard"
 import { Spinner } from "./Spinner";
 import  style from "./moviesGrid.module.css"
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Empty } from "./Empty";
 
 export function MoviesGRid({search} ){
   const [movies, setMovies] = useState([]);
@@ -18,7 +19,7 @@ export function MoviesGRid({search} ){
   useEffect(() => {
     setIsLoading(true);
     const searchURL= search 
-    ? "/search/movie?query=" + search +"&page" + page
+    ? "/search/movie?query=" + search +"&page=" + page
     : "/discover/movie?page=" + page;
     get(searchURL).then((data) => {
       setMovies((prevMovies)=> prevMovies.concat(data.results));
@@ -27,11 +28,13 @@ export function MoviesGRid({search} ){
     });
   }, [search,page]);
 
-     
+     if(!isLoading && movies.length===0) return <Empty/>
+
     return(
-      <InfiniteScroll dataLength={movies.length} 
+      <InfiniteScroll 
+      dataLength={movies.length} 
       hasMore={hasMore}
-       next={()=> setPage((prevPage)=> prevPage + 1) }
+       next={()=>  setPage((prevPage)=> prevPage + 1)  }
        loader={ <Spinner/>}>
          <ul className={style.moviesGrid}>
           { /**REcoro todo mi objeto movies.json con map  */
