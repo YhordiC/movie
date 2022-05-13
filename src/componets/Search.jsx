@@ -15,7 +15,7 @@ export function Search() {
      
 
     const handleSubmit =(e) => {
-        e.preventDefault();
+        e.preventgitDefault();
      
     };
     return (

@@ -11,9 +11,6 @@ export function MovieDetails(){
     const [movie, setMovie] = useState(null);
     const [isLoading,setIsLoading] = useState(true);
     
- 
-    
-    
     useEffect(() => {
       setIsLoading(true);
        
