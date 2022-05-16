@@ -9,6 +9,6 @@ version:
 node v10.19.0
 npm v8.5.0
 
- "react-router-dom": "^5.2.0" en  el package.json
+ "react-router-dom": ultima version estable
  
  Link para ver el proyecto en funcionamiento https://yhordi.netlify.app/
